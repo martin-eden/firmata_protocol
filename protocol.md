@@ -21,6 +21,7 @@ clear, so lie in `00`..`7F`.
 
 * Pin mode
   * [Set pin mode](#set_pin_mode)
+  * [Get pin mode](#get_pin_mode)
   * [Get pins modes](#get_pins_modes)
   * [Get analog pins mapping](#get_analog_pins_mapping)
 * Pin value
@@ -28,7 +29,7 @@ clear, so lie in `00`..`7F`.
   * [Set analog pin value](#set_pin_value_analog)
   * [Enable/disable digital port value reporting](#digital_port_reporting)
   * [Enable/disable analog pin value reporting](#analog_pin_reporting)
-  * [Get pin state](#get_pin_state)
+
 * Misc
   * [System reset](#reset)
   * [Get firmware version](#get_firmware_version)
@@ -70,6 +71,37 @@ __Mode__<a name="pin_modes"/>
   `09`  | Encoder
   `0A`  | Serial
   `0B`  | Digital input-pullup
+
+----------------------------------------------------------------------
+
+### Get pin mode <a name="get_pin_mode"/>
+
+```
+  ╭────╮ ╭────╮ ╭───────╮ ╭────╮
+→ │ F0 ├─┤ 6D ├─┤ Pin # ├─┤ F7 │
+  ╰────╯ ╰────╯ ╰───────╯ ╰────╯
+```
+
+```
+  ╭────╮ ╭────╮ ╭───────╮ ╭──────╮ ╭──────────────────────╮        ╭────╮
+← │ F0 ├─┤ 6E ├─┤ Pin # ├─┤ Mode ├─┤ Value.Bit.6 .. Bit.0 ├──────┬─┤ F7 │
+  ╰────╯ ╰────╯ ╰───────╯ ╰──────╯ ╰─┬────────────────────╯      │ ╰────╯
+                                     │ ╭───────────────────────╮ │
+                                     ╰─┤ Value.Bit.13 .. Bit.7 ├─┤
+                                       ╰─┬─────────────────────╯ │
+                                         │                       │
+                                         ╰─ ... ─────────────────╯
+```
+
+[__Mode__](#pin_modes) - same mapping as for "Set pin mode".
+
+__State__ - pin state value, meaning depends of pin mode:
+
+  Mode                                | Value or meaning
+  ------------------------------------|----------------------------------------
+  digital output, PWM, servo          | value, previously written to pin
+  analog input                        | 0
+  digital input-pullup, digital input | 1/0 - pullup resistor enabled/disabled
 
 ----------------------------------------------------------------------
 
@@ -211,35 +243,6 @@ via [set sampling interval](#set_sampling_interval) command.
 ```
 
 __Analog pin #__ - value between 0 and 15. 0 means A0, 1 - A1, etc.
-
-----------------------------------------------------------------------
-
-### Get pin state <a name="get_pin_state"/>
-
-```
-  ╭────╮ ╭────╮ ╭───────╮ ╭────╮
-→ │ F0 ├─┤ 6D ├─┤ Pin # ├─┤ F7 │
-  ╰────╯ ╰────╯ ╰───────╯ ╰────╯
-```
-
-```
-  ╭────╮ ╭────╮ ╭───────╮ ╭──────────╮ ╭──────────────────────╮        ╭────╮
-← │ F0 ├─┤ 6E ├─┤ Pin # ├─┤ Pin mode ├─┤ State.Bit.6 .. Bit.0 ├──────┬─┤ F7 │
-  ╰────╯ ╰────╯ ╰───────╯ ╰──────────╯ ╰─┬────────────────────╯      │ ╰────╯
-                                         │ ╭───────────────────────╮ │
-                                         ╰─┤ State.Bit.13 .. Bit.7 ├─┤
-                                           ╰─┬─────────────────────╯ │
-                                             │                       │
-                                             ╰─ ... ─────────────────╯
-```
-
-__State__ - pin state value, meaning depends of pin mode:
-
-  Mode                                | Value or meaning
-  ------------------------------------|----------------------------------------
-  digital output, PWM, servo          | value, previously written to pin
-  analog input                        | 0
-  digital input-pullup, digital input | 1/0 - pullup resistor enabled/disabled
 
 ----------------------------------------------------------------------
 
