@@ -205,7 +205,7 @@ Port value is byte where every bit represents pin. So _port 0_ are
 pins 0 to 7, _port 1_ are pins 8 to 15, etc. 16 ports are possible,
 so this command capacity is 128 digital pins.
 
-Port value is reported every time it is changed.
+Port value is reported after first call and every time it is changed.
 
 ```
   ╭───────────────╮ ╭──────────────────────╮
