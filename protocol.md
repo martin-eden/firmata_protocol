@@ -22,7 +22,7 @@ clear, so lie in `00`..`7F`.
 * Pin mode
   * [Set pin mode](#set_pin_mode)
   * [Get pin mode](#get_pin_mode)
-  * [Get pins modes](#get_pins_modes)
+  * [Get possible pins modes](#get_possible_pins_modes)
   * [Get analog pins mapping](#get_analog_pins_mapping)
 * Pin value
   * [Set digital pin value](#set_pin_value_digital)
@@ -105,7 +105,7 @@ __State__ - pin state value, meaning depends of pin mode:
 
 ----------------------------------------------------------------------
 
-### Get pins modes <a name="get_pins_modes"/>
+### Get possible pins modes <a name="get_possible_pins_modes"/>
 
 For each pin on board list all modes it can support.
 
