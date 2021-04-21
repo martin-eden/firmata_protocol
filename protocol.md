@@ -173,8 +173,7 @@ Port value is byte where every bit represents pin. So _port 0_ are
 pins 0 to 7, _port 1_ are pins 8 to 15, etc. 16 ports are possible,
 so this command capacity is 128 digital pins.
 
-Port value is reported every time firmware main loop executed (as fast
-as possible).
+Port value is reported every time it is changed.
 
 ```
   ╭───────────────╮ ╭──────────────────────╮
@@ -184,9 +183,9 @@ as possible).
 
 ```
      ╭───────────────╮ ╭────────────────╮ ╭─────────────╮
-← ─┬─┤ 90 + (Port #) ├─┤ Pin.6 .. Pin.0 ├─┤ Pin.7 (0/1) ├─╮
-   ↑ ╰───────────────╯ ╰────────────────╯ ╰─────────────╯ │
-   ╰──────────────────────────────────────────────────────╯
+← ─┬─┤ 90 + (Port #) ├─┤ Pin.6 .. Pin.0 ├─┤ Pin.7 (0/1) ├─ wait for port value change ─╮
+   ↑ ╰───────────────╯ ╰────────────────╯ ╰─────────────╯                              │
+   ╰───────────────────────────────────────────────────────────────────────────────────╯
 ```
 
 __Port #__ - value between 0 and 15.
