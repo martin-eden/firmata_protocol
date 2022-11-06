@@ -62,7 +62,7 @@ __Mode__<a name="pin_modes"/>
   `00`  | Digital input
   `01`  | Digital output
   `02`  | Analog input
-  `03`  | PWM (pseudo-analog output)
+  `03`  | PWM
   `04`  | Servo
   `05`  | Shift
   `06`  | I2C
