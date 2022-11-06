@@ -8,6 +8,7 @@ This is my interpretation of "Firmata" protocol. It is based on
 [proto]: https://github.com/firmata/protocol/blob/master/protocol.md
 [impl]: https://github.com/firmata/arduino
 
+----------------------------------------------------------------------
 
 ## Protocol
 
@@ -15,27 +16,28 @@ Firmata is command-data protocol with byte granularity. All "command" bytes
 have 8-th bit set, so lie in range `80`..`FF`. All data bytes have 8-th bit
 clear, so lie in range `00`..`7F`.
 
+----------------------------------------------------------------------
 
 ## Commands
 
-* Pin mode
-  * [Set pin mode](#set_pin_mode)
-  * [Get pins modes](#get_pins_modes)
-  * [Get analog pins mapping](#get_analog_pins_mapping)
-* Pin value
-  * [Set digital pin value](#set_pin_value_digital)
-  * [Set analog pin value](#set_pin_value_analog)
-  * [Enable/disable digital port value reporting](#digital_port_reporting)
-  * [Enable/disable analog pin value reporting](#analog_pin_reporting)
-  * [Get pin state](#get_pin_state)
+* Pin management
+  * Mode
+    * [<] [List all pins, all modes](#get_pins_modes)
+    * [<] [List analog pins](#get_analog_pins_mapping)
+    * [>] [Set pin mode](#set_pin_mode)
+  * Value
+    * [<] [Get pin state](#get_pin_state)
+    * [>] [Set digital value](#set_pin_value_digital)
+    * [>] [Set analog value](#set_pin_value_analog)
+  * Reporting
+    * [>] [Set analog report interval](#set_sampling_interval)
+    * [>] [Digital value reporting](#digital_port_reporting)
+    * [>] [Analog value reporting](#analog_port_reporting)
 * Misc
-  * [System reset](#reset)
-  * [Get firmware version](#get_firmware_version)
-  * [Get firmware name and version](#get_firmware_name_version)
-  * [Set sampling interval](#set_sampling_interval)
-  * [String reply](#string_reply)
-
-----------------------------------------------------------------------
+  * [>] [Reset](#reset)
+  * [<] [Get version](#get_firmware_version)
+  * [<] [Get version (v2)](#get_firmware_name_version)
+  * [<] [String reply](#string_reply)
 
 ----------------------------------------------------------------------
 
