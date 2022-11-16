@@ -306,13 +306,14 @@ as implementation code strips only `.cpp` extension.
 
 ----------------------------------------------------------------------
 
-### Set sampling interval <a name="set_sampling_interval"/>
+### Set analog sampling interval <a name="set_sampling_interval"/>
 
-Sampling interval is time interval between analog pin value reporting.
-Used in [enable/disable analog pin value reporting](#analog_pin_reporting)
-command.
+Set the interval at which analog pins with enabled reporting are queried.
 
 Default value is __19 ms__.
+
+Used in [enable/disable analog pin value reporting](#analog_pin_reporting)
+command.
 
 ```
   ╭────╮ ╭────╮ ╭────────────────────────╮ ╭─────────────╮ ╭────╮
