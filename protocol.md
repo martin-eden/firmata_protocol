@@ -247,9 +247,9 @@ __State__ - pin state value, meaning depends of pin mode:
 
   Mode                                | Value or meaning
   ------------------------------------|----------------------------------------
-  digital output, PWM, servo          | value, previously written to pin
-  analog input                        | 0
-  digital input-pullup, digital input | 1/0 - pullup resistor enabled/disabled
+  Digital output, PWM, servo          | Value previously written to pin
+  Analog input                        | 0
+  Digital input, digital input-pullup | 0/1 - pullup resistor enabled/disabled
 
 ----------------------------------------------------------------------
 
