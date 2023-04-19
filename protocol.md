@@ -39,8 +39,8 @@ of data bytes.
     * [>] [Set analog value](#set_pin_value_analog)
   * Reporting
     * [>] [Set analog report interval](#set_sampling_interval)
-    * [>] [Digital value reporting](#digital_port_reporting)
-    * [>] [Analog value reporting](#analog_port_reporting)
+    * [>] [Enable/disable digital port value reporting](#setup_digital_port_reporting)
+    * [>] [Enable/disable analog port value reporting](#setup_analog_port_reporting)
 * Misc
   * [>] [Reset](#reset)
   * [<] [Get version](#get_firmware_version)
@@ -176,7 +176,7 @@ value of A[i] means __analog pin index__: 0 - A0, 1 - A1, etc.
 
 ----------------------------------------------------------------------
 
-### Enable/disable digital port value reporting <a name="digital_port_reporting"/>
+### Enable/disable digital port value reporting <a name="setup_digital_port_reporting"/>
 
 Port value is byte where every bit represents pin. So _port 0_ are
 pins 0 to 7, _port 1_ are pins 8 to 15, etc. 16 ports are possible,
@@ -202,7 +202,7 @@ __Port #__ - value between 0 and 15.
 
 ----------------------------------------------------------------------
 
-### Enable/disable analog pin value reporting <a name="analog_pin_reporting"/>
+### Enable/disable analog pin value reporting <a name="setup_analog_pin_reporting"/>
 
 Pin value is reported every 19 ms by default. This time may be changed
 via [set sampling interval](#set_sampling_interval) command.
