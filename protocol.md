@@ -16,6 +16,14 @@ Firmata is command-data protocol with byte granularity. All "command" bytes
 have 8-th bit set, so lie in range `80`..`FF`. All data bytes have 8-th bit
 clear, so lie in range `00`..`7F`.
 
+There are two types of Firmata commands: fixed-length and variable-length.
+
+Fixed-length command is command byte and fixed number of data bytes.
+
+Variable-length command is stored between `F0` (Sysex.Start) and `F7`
+(Sysex.End) byte. Inside there are command byte and a variable number
+of data bytes.
+
 ----------------------------------------------------------------------
 
 ## Commands
