@@ -178,13 +178,6 @@ value of A[i] means __analog pin index__: 0 - A0, 1 - A1, etc.
 
 ### Setup digital port value reporting <a name="setup_digital_port_reporting"/>
 
-Port value is byte where every bit represents pin. So _port 0_ are
-pins 0 to 7, _port 1_ are pins 8 to 15, etc. 16 ports are possible,
-so this command capacity is 128 digital pins.
-
-Port value is reported every time firmware main loop executed (as fast
-as possible).
-
 ```
   ╭───────────────╮ ╭──────────────────────╮
 → │ D0 + (Port #) ├─┤ Enable/disable (1/0) │
@@ -192,13 +185,21 @@ as possible).
 ```
 
 ```
-     ╭───────────────╮ ╭────────────╮ ╭─────────────╮
-← ─┬─┤ 90 + (Port #) ├─┤ Pin.0 .. 6 ├─┤ Pin.7 (0/1) ├─╮
-   ↑ ╰───────────────╯ ╰────────────╯ ╰─────────────╯ │
-   ╰──────────────────────────────────────────────────╯
+     ╭───────────────╮ ╭──────────────────────╮ ╭───────────────────────╮
+← ─┬─┤ 90 + (Port #) ├─┤ PortValue.Bit.0 .. 6 ├─┤ PortValue.Bit.7 (0/1) ├─╮
+   ↑ ╰───────────────╯ ╰──────────────────────╯ ╰───────────────────────╯ │
+   ╰──────────────────────────────────────────────────────────────────────╯
 ```
 
 __Port #__ - value between 0 and 15.
+
+"Port value" means value of eight digital pins. Port 0 describes pins 0 to 7,
+port 1 -- pins 8 to 15 and so on.
+
+This command capacity is 16 ports or 128 digital pins.
+
+Port value is reported every time firmware main loop executed (as fast
+as possible).
 
 ----------------------------------------------------------------------
 
