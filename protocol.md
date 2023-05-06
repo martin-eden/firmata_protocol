@@ -41,6 +41,10 @@ of data bytes.
     * [>] [Set analog report interval](#set_sampling_interval)
     * [>] [Setup digital port value reporting](#setup_digital_port_reporting)
     * [>] [Setup analog port value reporting](#setup_analog_port_reporting)
+* [I2C](#i2c_preface)
+  * [>] [Init](#i2c_init)
+  * [<] [Read](#i2c_read)
+  * [>] [Write](#i2c_write)
 * Misc
   * [>] [Reset](#reset)
   * [<] [Get version](#get_firmware_version)
@@ -254,6 +258,72 @@ __State__ - pin state value, meaning depends of pin mode:
 
 ----------------------------------------------------------------------
 
+## I2C <a name="i2c_preface"/>
+
+Firmata protocol has extension for working with I2C devices.
+
+Here I'll describe just core functionality needed for work. Although
+protocol supports 10-bit device addresses and continious reading, these
+will not be decribed now. Official description is available [there](https://github.com/firmata/protocol/blob/master/i2c.md).
+
+We have some _DeviceId_ - 7-bit integer, _DataOffset_ - 8-bit integer and
+_DataLength_ - 8-bit integer.
+
+Before any reads or writes you need to send [init command](#i2c_init).
+
+----------------------------------------------------------------------
+
+### I2C Init <a name="i2c_init"/>
+
+```
+  ╭────╮ ╭────╮ ╭────╮
+→ │ F0 ├─┤ 78 ├─┤ F7 │
+  ╰────╯ ╰────╯ ╰────╯
+```
+
+```
+← ∅
+```
+
+----------------------------------------------------------------------
+
+### I2C read <a name="i2c_read"/>
+
+```
+  ╭────╮╭────╮╭──────────╮╭───╮╭───────────────────────╮╭──────────────────╮╭───────────────────────╮╭──────────────────╮╭────╮
+→ │ F0 ├┤ 76 ├┤ DeviceId ├┤ 8 ├┤ DataOffset.Bit.0 .. 6 ├┤ DataOffset.Bit.7 ├┤ DataLength.Bit.0 .. 6 ├┤ DataLength.Bit.7 ├┤ F7 │
+  ╰────╯╰────╯╰──────────╯╰───╯╰───────────────────────╯╰──────────────────╯╰───────────────────────╯╰──────────────────╯╰────╯
+```
+
+If there is no error, response is
+```
+  ╭────╮╭────╮╭──────────╮╭───╮╭───────────────────────╮╭──────────────────╮ ╭─────────────────╮╭────────────╮ ╭────╮
+← │ F0 ├┤ 77 ├┤ DeviceId ├┤ 0 ├┤ DataOffset.Bit.0 .. 6 ├┤ DataOffset.Bit.7 ├┬┤ Data.Bit.0 .. 6 ├┤ Data.Bit.7 ├┬┤ F7 │
+  ╰────╯╰────╯╰──────────╯╰───╯╰───────────────────────╯╰──────────────────╯↑╰─────────────────╯╰────────────╯│╰────╯
+                                                                            ╰─────────────────────────────────╯
+                                                                                        #DataLength
+```
+
+If there _is_ error, there will be [string message](#string_reply) with
+text like `I2C: Too many bytes received` or `I2C: Too few bytes received`
+_AND_ normal response with data.
+
+----------------------------------------------------------------------
+### I2C write <a name="i2c_write"/>
+
+```
+  ╭────╮╭────╮╭──────────╮╭───╮╭───────────────────────╮╭──────────────────╮ ╭─────────────────╮╭────────────╮ ╭────╮
+→ │ F0 ├┤ 76 ├┤ DeviceId ├┤ 0 ├┤ DataOffset.Bit.0 .. 6 ├┤ DataOffset.Bit.7 ├┬┤ Data.Bit.0 .. 6 ├┤ Data.Bit.7 ├┬┤ F7 │
+  ╰────╯╰────╯╰──────────╯╰───╯╰───────────────────────╯╰──────────────────╯↑╰─────────────────╯╰────────────╯│╰────╯
+                                                                            ╰─────────────────────────────────╯
+                                                                                        #DataLength
+```
+
+```
+← ∅
+```
+----------------------------------------------------------------------
+
 ### System reset <a name="reset"/>
 
 Reset to initial state and execute initialization sequence.
@@ -265,7 +335,7 @@ Reset to initial state and execute initialization sequence.
 ```
 
 ```
-← ─ ∅
+← ∅
 ```
 
 ----------------------------------------------------------------------
