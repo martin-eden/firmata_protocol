@@ -99,7 +99,7 @@ For each pin on board list all modes it can support.
 ```
   ╭────╮ ╭────╮                                   ╭────╮   ╭────╮
 ← │ F0 ├─┤ 6C ├─┬─┬─────────────────────────────┬─┤ 7F ├─┬─┤ F7 │
-  ╰────╯ ╰────╯ ↑ │   ╭──────╮ ╭────────────╮   │ ╰────╯ │ ╰────╯
+  ╰────╯ ╰────╯ │ │   ╭──────╮ ╭────────────╮   │ ╰────╯ │ ╰────╯
                 │ ╰─┬─┤ Mode ├─┤ Resolution ├─┬─╯        │
                 │   ↑ ╰──────╯ ╰────────────╯ │          │
                 │   ╰───── #(Pin modes) ──────╯          │
@@ -112,14 +112,14 @@ __Resolution__ - number of bits in value for given mode.
 
   Mode # | Mode name             | Resolution bits
  --------|-----------------------|----------------
-  `00`   | Digital input         | 1
-  `01`   | Digital output        | 1
-  `0B`   | Digital input-pullup  | 1
-  `06`   | I2C                   | 1
-  `03`   | PWM                   | 8
-  `02`   | Analog input          | 10
-  `04`   | Servo                 | 14
-  `0A`   | Serial                | 4: Bit.0: 0 - RX, 1 - TX, Bit.1 .. Bit.3 - UART port number.
+   0     | Digital input         | 1
+   1     | Digital output        | 1
+   2     | Analog input          | 10
+   3     | PWM                   | 8
+   4     | Servo                 | 14
+   6     | I2C                   | 1
+   10    | Serial                | 4: Bit.0: 0 - RX, 1 - TX, Bit.1 .. Bit.3 - UART port number.
+   11    | Digital input-pullup  | 1
 
 ----------------------------------------------------------------------
 
