@@ -19,9 +19,10 @@ clear, so lie in range `00`..`7F`.
 There are two types of Firmata commands: fixed-length and variable-length.
 
 Fixed-length command is command byte and fixed number of data bytes.
+Number of data bytes depends of command.
 
-Variable-length command is stored between `F0` (Sysex.Start) and `F7`
-(Sysex.End) byte. Inside there are command byte and a variable number
+Variable-length command is embraced between `F0` (Sysex.Start) and `F7`
+(Sysex.End) bytes. Inside there are command byte and a variable number
 of data bytes.
 
 ----------------------------------------------------------------------
