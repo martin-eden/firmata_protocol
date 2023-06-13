@@ -187,7 +187,8 @@ value of A[i] means __analog pin index__: 0 - A0, 1 - A1, etc.
 → │ D0 + (Port #) ├─┤ Enable/disable (1/0) │
   ╰───────────────╯ ╰──────────────────────╯
 ```
-
+If enabled you will start getting following message every time firmware
+main loop executed (as fast as possible):
 ```
      ╭───────────────╮ ╭──────────────────────╮ ╭───────────────────────╮
 ← ─┬─┤ 90 + (Port #) ├─┤ PortValue.Bit.0 .. 6 ├─┤ PortValue.Bit.7 (0/1) ├─╮
@@ -200,24 +201,19 @@ __Port #__ - value between 0 and 15.
 "Port value" means value of eight digital pins. Port 0 describes pins 0 to 7,
 port 1 -- pins 8 to 15 and so on.
 
-This command capacity is 16 ports or 128 digital pins.
-
-Port value is reported every time firmware main loop executed (as fast
-as possible).
+Command capacity is 16 ports or 128 digital pins.
 
 ----------------------------------------------------------------------
 
 ### Setup analog pin value reporting <a name="setup_analog_pin_reporting"/>
-
-Pin value is reported every 19 ms by default. This time may be changed
-via [set sampling interval](#set_sampling_interval) command.
 
 ```
   ╭─────────────────────╮ ╭──────────────────────╮
 → │ C0 + (Analog pin #) ├─┤ Enable/disable (1/0) │
   ╰─────────────────────╯ ╰──────────────────────╯
 ```
-
+If enabled, you will start getting this message every 19ms. Analog query delay
+may be changed via [set sampling interval](#set_sampling_interval) command.
 ```
      ╭─────────────────────╮ ╭────────────╮ ╭─────────────╮
 ← ─┬─┤ E0 + (Analog pin #) ├─┤ Bit.0 .. 6 ├─┤ Bit.7 .. 13 ├─ delay ─╮
