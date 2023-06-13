@@ -40,7 +40,7 @@ of data bytes.
   * Reporting
     * [>] [Set analog report interval](#set_sampling_interval)
     * [>] [Setup digital port value reporting](#setup_digital_port_reporting)
-    * [>] [Setup analog port value reporting](#setup_analog_port_reporting)
+    * [>] [Setup analog pin value reporting](#setup_analog_pin_reporting)
 * [I2C](#i2c_preface)
   * [>] [Init](#i2c_init)
   * [<] [Read](#i2c_read)
