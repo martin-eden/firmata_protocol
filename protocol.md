@@ -12,18 +12,55 @@ This is my interpretation of "Firmata" protocol. It is based on
 
 ## Protocol
 
-Firmata is command-data protocol with byte granularity. All "command" bytes
-have 8-th bit set, so lie in range `80`..`FF`. All data bytes have 8-th bit
-clear, so lie in range `00`..`7F`.
+Firmata is command-data protocol with byte granularity.
 
 There are two types of Firmata commands: fixed-length and variable-length.
 
 Fixed-length command is command byte and fixed number of data bytes.
 Number of data bytes depends of command.
 
-Variable-length command is embraced between `F0` (Sysex.Start) and `F7`
-(Sysex.End) bytes. Inside there are command byte and a variable number
-of data bytes.
+Command byte for fixed-length command always have 8-th bit set.
+So lies in range `80`..`FF`. Data bytes have 8-th bit clear,
+so lie in range `00`..`7F`.
+
+Variable-length command is embraced between `F0` (aka `SYSEX_START` in
+official documentation) and `F7` (aka `SYSEX_END`) bytes.
+Inside there are command byte and a variable number of data bytes.
+They are all 8th bit clear, so lie in range `00`..`7F`.
+
+## Transmitting 8-bit bytes
+
+In case when value may occupy whole byte range `00`..`FF` (like data from
+I2C), it is transmitted in two 7-bit bytes.
+
+First byte holds lower 7 bits, second byte holds 8th bit. That 8th
+bit value occupies bit 0.
+
+Let's transmit `0xA5`: `A` is `1100`, `5` is `0101`.
+
+```
+   A       5
+~~~~~~~ ~~~~~~~
+1 1 0 0 0 1 0 1
+~ ~~~~~~~~~~~~~
+1    4    5
+
+  ╭────╮ ╭────╮
+→ │ 45 ├─┤ 01 │
+  ╰────╯ ╰────╯
+```
+
+In my diagrams it is represented like
+
+```
+  ╭──────────────────╮ ╭───────────────────╮
+→ │ Value.Bit.0 .. 6 ├─┤ Value.Bit.7 (0/1) │
+  ╰──────────────────╯ ╰───────────────────╯
+```
+
+(Not the best notation. As reading `Bit.0 .. 6` you may think that
+bit 0 value is at higher index than bit 6 value. But no, `Bit.0 .. 6`
+means `SELECT BITS FROM 0 TO 6 AND ASSIGN THEM TO BYTE.` in COBOL.)
 
 ----------------------------------------------------------------------
 
