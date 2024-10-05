@@ -31,7 +31,7 @@ They are all 8th bit clear, so lie in range `00`..`7F`.
 ## Transmitting 8-bit bytes
 
 In case when value may occupy whole byte range `00`..`FF` (like data from
-I2C), it is transmitted in two 7-bit bytes.
+I2C), it is transmitted in two bytes.
 
 First byte holds lower 7 bits, second byte holds 8th bit. That 8th
 bit value occupies bit 0.
