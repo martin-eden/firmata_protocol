@@ -36,17 +36,17 @@ I2C), it is transmitted in two bytes.
 First byte holds lower 7 bits, second byte holds 8th bit. That 8th
 bit value occupies bit 0.
 
-Let's transmit `0xA5`: `A` is `1100`, `5` is `0101`.
+Let's transmit `0xA4`: `A` is `1010`, `4` is `0100`.
 
 ```
-   A       5
+   A       4
 ~~~~~~~ ~~~~~~~
-1 1 0 0 0 1 0 1
+1 0 1 0 0 1 0 0
 ~ ~~~~~~~~~~~~~
-1    4    5
+1    2    4
 
   ╭────╮ ╭────╮
-→ │ 45 ├─┤ 01 │
+→ │ 24 ├─┤ 01 │
   ╰────╯ ╰────╯
 ```
 
